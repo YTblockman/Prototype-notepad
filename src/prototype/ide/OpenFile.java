@@ -6,13 +6,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class OpenFile {
+	public static File selectedFile; 
 	public static File Explorer() {
 		 // l.setText(jt.getText()); 
     	JFileChooser fileChooser = new JFileChooser();
     	fileChooser.setDialogTitle("Open file");
         int returnValue = fileChooser.showOpenDialog(IdeMainWindow.f);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-          File selectedFile = fileChooser.getSelectedFile();
+          selectedFile = fileChooser.getSelectedFile();
           System.out.println(selectedFile.getName());
           return selectedFile;/*
           if(selectedFile.isFile() && selectedFile.getName().contains(".png")) {

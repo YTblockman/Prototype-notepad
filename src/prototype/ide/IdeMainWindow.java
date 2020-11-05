@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -18,9 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
-
-import prototype.startup.ShowWindowFrame; 
+import javax.swing.KeyStroke; 
 @SuppressWarnings("serial")
 public class IdeMainWindow extends JFrame implements ActionListener { 
 	public static File load;
@@ -98,7 +98,7 @@ public class IdeMainWindow extends JFrame implements ActionListener {
                try {
 				if(load.canRead()) {
 					   
-				       if(load.isFile()) {
+				       if(load.isFile()) {/*
 				    	   if(load.getName().contains(".png") || load.getName().contains(".jpg") || load.getName().contains(".svg")) {
 					     	  try {
 								ShowWindowFrame.filewind(load, load.getName() + " [Prototype image wiew] " + load.getPath());
@@ -108,7 +108,27 @@ public class IdeMainWindow extends JFrame implements ActionListener {
 							}
 				    	   }else {
 				    		   JOptionPane.showMessageDialog(null, "Can't open file, file type is invalid!", "Invalid file type! " + "", JOptionPane.ERROR_MESSAGE);
-				    	   }
+				    	   }*/
+				    	   String datas = " ";
+				    	   try {
+				    		      File myObj = new File(OpenFile.selectedFile.getPath());
+				    		      Scanner myReader = new Scanner(myObj);
+				    		      while (myReader.hasNextLine()) {
+				    		        String data = myReader.nextLine();
+				    		        datas = datas + (data+"\n");
+				    		        System.out.println(datas);
+				    		        
+				    		        
+				    		      }
+				    		      jt.setText(datas);
+				    		      datas = "";
+				    		      myReader.close();
+				    		    } catch (FileNotFoundException exc) {
+				    		      System.out.println("An error occurred.");
+				    		      exc.printStackTrace();
+				    		      JOptionPane.showMessageDialog(null, "Can't open file, can't read!", "read error! " + "", JOptionPane.ERROR_MESSAGE);
+				    	}
+				    	   
 				   }else {
 					   JOptionPane.showMessageDialog(null, "Can't open file, can't read!", "read error! " + "", JOptionPane.ERROR_MESSAGE);
 				   }
